@@ -10,4 +10,10 @@
     <string name="menu_all">All guests</string>
     <string name="menu_present">Presents</string>
     <string name="menu_absents">Absents</string>
+    <string name="name_txt">Name:</string>
+    <string name="name_input_hint">Insert your name here</string>
+    <string name="confirmation_txt">Confirmation:</string>
+    <string name="present_txt">Present</string>
+    <string name="absent_txt">Absent</string>
+    <string name="save_txt">Save</string>
 </resources>
