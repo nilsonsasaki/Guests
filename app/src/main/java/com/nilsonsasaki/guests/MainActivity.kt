@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        binding.appBarMain.fab.setOnClickListener { view ->
+        binding.appBarMain.fab.setOnClickListener {
             startActivity(
                 Intent(applicationContext, GuestFormActivity::class.java)
             )
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_all, R.id.nav_presents, R.id.nav_absents
+                R.id.nav_all_guests, R.id.nav_presents, R.id.nav_absents
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
