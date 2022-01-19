@@ -22,11 +22,11 @@ class GuestFormViewModel : ViewModel() {
         when (presence) {
             Presence.PRESENT -> {
                 guestRepository.save(GuestModel(name, "present"))
-                showToast(R.string.saved_sucessfully)
+                showToast(R.string.saved_successfully)
             }
             Presence.ABSENT -> {
                 guestRepository.save(GuestModel(name, "absent"))
-                showToast(R.string.saved_sucessfully)
+                showToast(R.string.saved_successfully)
             }
             else -> {
                 showToast(R.string.saving_failed)
