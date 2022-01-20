@@ -25,17 +25,17 @@ class GuestFormActivity : AppCompatActivity() {
 
     private fun setOnClickListeners() {
 
-        _binding.btSave.setOnClickListener() {
+        _binding.btSave.setOnClickListener {
             val name = _binding.etUserName.text.toString()
             val presence: Presence? = guestFormViewModel.radioButtonStatus.value
             guestFormViewModel.save(name, presence)
         }
 
-        _binding.rbAbsent.setOnClickListener() {
+        _binding.rbAbsent.setOnClickListener {
             guestFormViewModel.setRadioButton(Presence.ABSENT)
         }
 
-        _binding.rbPresent.setOnClickListener() {
+        _binding.rbPresent.setOnClickListener {
             guestFormViewModel.setRadioButton(Presence.PRESENT)
         }
     }
