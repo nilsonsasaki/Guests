@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.nilsonsasaki.guests.databinding.FragmentAllGuestsBinding
 import com.nilsonsasaki.guests.ui.viewmodels.AllGuestsViewModel
@@ -24,15 +23,15 @@ class AllGuestsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         allGuestsViewModel =
-            ViewModelProvider(this).get(AllGuestsViewModel::class.java)
+            ViewModelProvider(this)[AllGuestsViewModel::class.java]
 
         _binding = FragmentAllGuestsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textHome
-        allGuestsViewModel.text.observe(viewLifecycleOwner, Observer {
+        allGuestsViewModel.text.observe(viewLifecycleOwner, {
             textView.text = it
         })
         return root

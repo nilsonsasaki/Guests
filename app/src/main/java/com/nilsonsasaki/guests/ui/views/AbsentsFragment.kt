@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.nilsonsasaki.guests.databinding.FragmentAbsentsBinding
 import com.nilsonsasaki.guests.ui.viewmodels.AbsentsViewModel
@@ -24,15 +23,15 @@ class AbsentsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         absentsViewModel =
-            ViewModelProvider(this).get(AbsentsViewModel::class.java)
+            ViewModelProvider(this)[AbsentsViewModel::class.java]
 
         _binding = FragmentAbsentsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textSlideshow
-        absentsViewModel.text.observe(viewLifecycleOwner, Observer {
+        absentsViewModel.text.observe(viewLifecycleOwner, {
             textView.text = it
         })
         return root

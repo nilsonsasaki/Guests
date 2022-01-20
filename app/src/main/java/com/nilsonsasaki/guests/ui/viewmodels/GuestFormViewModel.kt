@@ -1,8 +1,9 @@
-package com.nilsonsasaki.guests
+package com.nilsonsasaki.guests.ui.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.nilsonsasaki.guests.R
 import com.nilsonsasaki.guests.service.models.GuestModel
 import com.nilsonsasaki.guests.service.repository.GuestRepository
 
