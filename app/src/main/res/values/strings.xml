@@ -18,4 +18,5 @@
     <string name="save_txt">Save</string>
     <string name="saved_successfully">Saved successfully</string>
     <string name="saving_failed">Saving failed</string>
+    <string name="fab_go_to_guest_form">go to Guest Form</string>
 </resources>
