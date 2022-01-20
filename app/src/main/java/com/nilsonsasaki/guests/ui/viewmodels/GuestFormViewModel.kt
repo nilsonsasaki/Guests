@@ -1,17 +1,19 @@
 package com.nilsonsasaki.guests.ui.viewmodels
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.nilsonsasaki.guests.R
 import com.nilsonsasaki.guests.service.models.GuestModel
 import com.nilsonsasaki.guests.service.repository.GuestRepository
 
 enum class Presence { PRESENT, ABSENT, NONE }
 
-class GuestFormViewModel : ViewModel() {
+class GuestFormViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val guestRepository = GuestRepository()
+    private val mContext = application.applicationContext
+    private val guestRepository = GuestRepository.getInstance(context = mContext)
 
     private val _toastText = MutableLiveData<Int>()
     val toastText: LiveData<Int> = _toastText
@@ -22,11 +24,11 @@ class GuestFormViewModel : ViewModel() {
     fun save(name: String, presence: Presence?) {
         when (presence) {
             Presence.PRESENT -> {
-                guestRepository.save(GuestModel(name, "present"))
+                guestRepository.save(GuestModel(name, true))
                 showToast(R.string.saved_successfully)
             }
             Presence.ABSENT -> {
-                guestRepository.save(GuestModel(name, "absent"))
+                guestRepository.save(GuestModel(name, false))
                 showToast(R.string.saved_successfully)
             }
             else -> {
