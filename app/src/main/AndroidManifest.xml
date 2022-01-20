@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nilsonsasaki.guests" >
+    package="com.nilsonsasaki.guests">
 
     <application
         android:allowBackup="true"
@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Guests" >
         <activity
-            android:name=".GuestFormActivity"
+            android:name=".ui.views.GuestFormActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.views.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Guests.NoActionBar" >
+            android:theme="@style/Theme.Guests.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
