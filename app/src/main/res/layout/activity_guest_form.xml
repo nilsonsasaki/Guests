@@ -22,9 +22,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_between_elements"
         android:hint="@string/name_input_hint"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name_txt" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_name_txt"
+        android:autofillHints="name"/>
 
     <TextView
         android:id="@+id/tv_confirmation"
@@ -44,11 +46,13 @@
         app:layout_constraintTop_toBottomOf="@id/tv_confirmation">
 
         <RadioButton
+            android:id="@+id/rb_present"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/present_txt" />
 
         <RadioButton
+            android:id="@+id/rb_absent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/absent_txt" />

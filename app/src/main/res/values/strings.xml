@@ -16,4 +16,6 @@
     <string name="present_txt">Present</string>
     <string name="absent_txt">Absent</string>
     <string name="save_txt">Save</string>
+    <string name="saved_successfully">Saved successfully</string>
+    <string name="saving_failed">Saving failed</string>
 </resources>
