@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.nilsonsasaki.guests.GuestFormViewModel
-import com.nilsonsasaki.guests.Presence
+import com.nilsonsasaki.guests.ui.viewmodels.GuestFormViewModel
+import com.nilsonsasaki.guests.ui.viewmodels.Presence
 import com.nilsonsasaki.guests.databinding.ActivityGuestFormBinding
 
 class GuestFormActivity : AppCompatActivity() {
