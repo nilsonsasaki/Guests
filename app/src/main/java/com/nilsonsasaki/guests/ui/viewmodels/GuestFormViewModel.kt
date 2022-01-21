@@ -21,14 +21,14 @@ class GuestFormViewModel(application: Application) : AndroidViewModel(applicatio
     private val _radioButtonStatus = MutableLiveData(Presence.NONE)
     val radioButtonStatus: LiveData<Presence> = _radioButtonStatus
 
-    fun save(name: String, presence: Presence?) {
+    fun save(name: String, presence: Presence) {
         when (presence) {
             Presence.PRESENT -> {
-                guestRepository.save(GuestModel(name, true))
+                guestRepository.save(GuestModel(name = name, presence = true))
                 showToast(R.string.saved_successfully)
             }
             Presence.ABSENT -> {
-                guestRepository.save(GuestModel(name, false))
+                guestRepository.save(GuestModel(name = name, presence = false))
                 showToast(R.string.saved_successfully)
             }
             else -> {
