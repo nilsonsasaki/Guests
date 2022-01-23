@@ -24,12 +24,20 @@ class GuestFormViewModel(application: Application) : AndroidViewModel(applicatio
     fun save(name: String, presence: Presence) {
         when (presence) {
             Presence.PRESENT -> {
-                guestRepository.save(GuestModel(name = name, presence = true))
-                showToast(R.string.saved_successfully)
+                val isSuccessful = guestRepository.save(GuestModel(name = name, presence = true))
+                if(isSuccessful){
+                    showToast(R.string.saved_successfully)
+                } else {
+                    showToast(R.string.saving_failed)
+                }
             }
             Presence.ABSENT -> {
-                guestRepository.save(GuestModel(name = name, presence = false))
-                showToast(R.string.saved_successfully)
+                val isSuccessful = guestRepository.save(GuestModel(name = name, presence = false))
+                if (isSuccessful) {
+                    showToast(R.string.saved_successfully)
+                } else{
+                    showToast(R.string.saving_failed)
+                }
             }
             else -> {
                 showToast(R.string.saving_failed)
