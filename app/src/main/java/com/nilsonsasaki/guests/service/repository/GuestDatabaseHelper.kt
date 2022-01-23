@@ -14,7 +14,7 @@ class GuestDatabaseHelper(context: Context) : SQLiteOpenHelper(
         private const val DATABASE_VERSION = 1
         private const val DATABASE_NAME = "Guests.db"
 
-        private const val CREATE_TABLE_GUEST = ("create table " + DatabaseConstants.GUEST.TABLE_NAME
+        private const val CREATE_TABLE_GUEST = ("create table " + DatabaseConstants.GUEST.TABLE_NAME + " ("
                 + DatabaseConstants.GUEST.COLUMNS.ID + " integer primary key autoincrement, "
                 + DatabaseConstants.GUEST.COLUMNS.NAME + " text, "
                 + DatabaseConstants.GUEST.COLUMNS.PRESENCE + " integer);")
