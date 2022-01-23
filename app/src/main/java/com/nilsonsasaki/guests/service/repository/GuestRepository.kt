@@ -66,17 +66,102 @@ class GuestRepository private constructor(context: Context) {
 
     fun getAll(): List<GuestModel> {
         val list: MutableList<GuestModel> = ArrayList()
-        return list
+        return try {
+            val db = guestDatabaseHelper.readableDatabase
+            val projection = arrayOf(
+                DatabaseConstants.GUEST.COLUMNS.ID,
+                DatabaseConstants.GUEST.COLUMNS.NAME,
+                DatabaseConstants.GUEST.COLUMNS.PRESENCE
+            )
+            val cursor = db.query(
+                DatabaseConstants.GUEST.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null
+            )
+
+            if (cursor != null && cursor.count > 0) {
+                while (cursor.moveToNext()) {
+
+                    val id =
+                        cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseConstants.GUEST.COLUMNS.ID))
+                    val name =
+                        cursor.getString(cursor.getColumnIndexOrThrow(DatabaseConstants.GUEST.COLUMNS.NAME))
+                    val presence =
+                        (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseConstants.GUEST.COLUMNS.PRESENCE)) == 1)
+
+                    val guest = GuestModel(id, name, presence)
+                    list.add(guest)
+                }
+            }
+            cursor?.close()
+
+            list
+        } catch (e: Exception) {
+            list
+        }
+
     }
 
     fun getPresent(): List<GuestModel> {
         val list: MutableList<GuestModel> = ArrayList()
-        return list
+        return try {
+            val db = guestDatabaseHelper.readableDatabase
+            val cursor =
+                db.rawQuery("SELECT id, name, presence FROM Guest WHERE presence = 1", null)
+
+            if (cursor != null && cursor.count > 0) {
+                while (cursor.moveToNext()) {
+
+                    val id =
+                        cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseConstants.GUEST.COLUMNS.ID))
+                    val name =
+                        cursor.getString(cursor.getColumnIndexOrThrow(DatabaseConstants.GUEST.COLUMNS.NAME))
+                    val presence =
+                        (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseConstants.GUEST.COLUMNS.PRESENCE)) == 1)
+
+                    val guest = GuestModel(id, name, presence)
+                    list.add(guest)
+                }
+            }
+            cursor?.close()
+
+            list
+        } catch (e: Exception) {
+            list
+        }
     }
 
     fun getAbsent(): List<GuestModel> {
         val list: MutableList<GuestModel> = ArrayList()
-        return list
+        return try {
+            val db = guestDatabaseHelper.readableDatabase
+            val cursor =
+                db.rawQuery("SELECT id, name, presence FROM Guest WHERE presence = 0", null)
+
+            if (cursor != null && cursor.count > 0) {
+                while (cursor.moveToNext()) {
+
+                    val id =
+                        cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseConstants.GUEST.COLUMNS.ID))
+                    val name =
+                        cursor.getString(cursor.getColumnIndexOrThrow(DatabaseConstants.GUEST.COLUMNS.NAME))
+                    val presence =
+                        (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseConstants.GUEST.COLUMNS.PRESENCE)) == 1)
+
+                    val guest = GuestModel(id, name, presence)
+                    list.add(guest)
+                }
+            }
+            cursor?.close()
+
+            list
+        } catch (e: Exception) {
+            list
+        }
     }
 
     fun save(guest: GuestModel): Boolean {
