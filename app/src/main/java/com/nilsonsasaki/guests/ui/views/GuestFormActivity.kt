@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import com.nilsonsasaki.guests.ui.viewmodels.GuestFormViewModel
 import com.nilsonsasaki.guests.ui.viewmodels.Presence
 import com.nilsonsasaki.guests.databinding.ActivityGuestFormBinding
+import com.nilsonsasaki.guests.service.constants.GuestConstants
 
 class GuestFormActivity : AppCompatActivity() {
 
@@ -19,16 +20,26 @@ class GuestFormActivity : AppCompatActivity() {
         _binding = ActivityGuestFormBinding.inflate(layoutInflater)
         setContentView(_binding.root)
 
+        loadData()
         setOnClickListeners()
         setObservers()
+    }
+
+    private fun loadData() {
+        val bundle = intent.extras
+        if (bundle != null) {
+            val id = bundle.getInt(GuestConstants.GUEST_ID)
+            guestFormViewModel.loadGuest(id)
+        }
     }
 
     private fun setOnClickListeners() {
 
         _binding.btSave.setOnClickListener {
             val name = _binding.etUserName.text.toString()
-            val presence: Presence = guestFormViewModel.radioButtonStatus.value?: Presence.NONE
+            val presence: Presence = guestFormViewModel.radioButtonStatus.value ?: Presence.NONE
             guestFormViewModel.save(name, presence)
+            finish()
         }
 
         _binding.rbAbsent.setOnClickListener {
@@ -41,11 +52,13 @@ class GuestFormActivity : AppCompatActivity() {
     }
 
     private fun setObservers() {
+
         guestFormViewModel.toastText.observe(this, { ref ->
             if (ref != null) {
                 Toast.makeText(applicationContext, getText(ref), Toast.LENGTH_SHORT).show()
             }
         })
+
         guestFormViewModel.radioButtonStatus.observe(this, { status ->
             when (status) {
                 Presence.PRESENT -> {
@@ -60,6 +73,17 @@ class GuestFormActivity : AppCompatActivity() {
                     _binding.rbPresent.isChecked = false
                     _binding.rbAbsent.isChecked = false
                 }
+            }
+        })
+
+        guestFormViewModel.loadedGuest.observe(this, {
+            _binding.etUserName.setText(it.name)
+            if (it.presence) {
+                _binding.rbPresent.isChecked = true
+                _binding.rbAbsent.isChecked = false
+            } else {
+                _binding.rbPresent.isChecked = false
+                _binding.rbAbsent.isChecked = true
             }
         })
     }

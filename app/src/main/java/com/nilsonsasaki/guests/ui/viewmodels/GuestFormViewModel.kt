@@ -18,6 +18,9 @@ class GuestFormViewModel(application: Application) : AndroidViewModel(applicatio
     private val _toastText = MutableLiveData<Int>()
     val toastText: LiveData<Int> = _toastText
 
+    private val _loadedGuest = MutableLiveData<GuestModel>()
+    val loadedGuest :LiveData<GuestModel> = _loadedGuest
+
     private val _radioButtonStatus = MutableLiveData(Presence.NONE)
     val radioButtonStatus: LiveData<Presence> = _radioButtonStatus
 
@@ -55,5 +58,9 @@ class GuestFormViewModel(application: Application) : AndroidViewModel(applicatio
 
     private fun showToast(ref: Int) {
         _toastText.value = ref
+    }
+
+    fun loadGuest(id: Int) {
+        _loadedGuest.value = guestRepository.getGuest(id)
     }
 }
