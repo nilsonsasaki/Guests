@@ -33,6 +33,16 @@ class GuestFormViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    fun update(id: Int, name: String, presence: Boolean) {
+
+        val isSuccessful = guestRepository.update(GuestModel(id, name, presence))
+        if (isSuccessful) {
+            showToast(R.string.saved_successfully)
+        } else {
+            showToast(R.string.saving_failed)
+        }
+    }
+
     fun setRadioButton(presence: Boolean) {
         _radioButtonStatus.value = presence
     }
@@ -45,4 +55,6 @@ class GuestFormViewModel(application: Application) : AndroidViewModel(applicatio
         _loadedGuest.value = guestRepository.getGuest(id)
         loadedGuest.value?.let { setRadioButton(it.presence) }
     }
+
+
 }
