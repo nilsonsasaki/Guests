@@ -39,7 +39,11 @@ class GuestFormActivity : AppCompatActivity() {
             val name = _binding.etUserName.text.toString()
             val presence: Boolean =
                 guestFormViewModel.radioButtonStatus.value ?: GuestConstants.GUEST_IS_PRESENT
-            guestFormViewModel.save(id, name, presence)
+            if (id==0) {
+                guestFormViewModel.save(id, name, presence)
+            } else {
+                guestFormViewModel.update(id, name, presence)
+            }
             finish()
         }
 
