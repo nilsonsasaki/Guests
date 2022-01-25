@@ -5,10 +5,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nilsonsasaki.guests.R
+import com.nilsonsasaki.guests.service.constants.GuestConstants
 import com.nilsonsasaki.guests.service.models.GuestModel
 import com.nilsonsasaki.guests.service.repository.GuestRepository
-
-enum class Presence { PRESENT, ABSENT, NONE }
 
 class GuestFormViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -19,41 +18,23 @@ class GuestFormViewModel(application: Application) : AndroidViewModel(applicatio
     val toastText: LiveData<Int> = _toastText
 
     private val _loadedGuest = MutableLiveData<GuestModel>()
-    val loadedGuest :LiveData<GuestModel> = _loadedGuest
+    val loadedGuest: LiveData<GuestModel> = _loadedGuest
 
-    private val _radioButtonStatus = MutableLiveData(Presence.NONE)
-    val radioButtonStatus: LiveData<Presence> = _radioButtonStatus
+    private val _radioButtonStatus = MutableLiveData(GuestConstants.GUEST_IS_PRESENT)
+    val radioButtonStatus: LiveData<Boolean> = _radioButtonStatus
 
-    fun save(name: String, presence: Presence) {
-        when (presence) {
-            Presence.PRESENT -> {
-                val isSuccessful = guestRepository.save(GuestModel(name = name, presence = true))
-                if(isSuccessful){
-                    showToast(R.string.saved_successfully)
-                } else {
-                    showToast(R.string.saving_failed)
-                }
-            }
-            Presence.ABSENT -> {
-                val isSuccessful = guestRepository.save(GuestModel(name = name, presence = false))
-                if (isSuccessful) {
-                    showToast(R.string.saved_successfully)
-                } else{
-                    showToast(R.string.saving_failed)
-                }
-            }
-            else -> {
-                showToast(R.string.saving_failed)
-            }
+    fun save(id: Int = 0, name: String, presence: Boolean) {
+
+        val isSuccessful = guestRepository.save(GuestModel(id, name, presence))
+        if (isSuccessful) {
+            showToast(R.string.saved_successfully)
+        } else {
+            showToast(R.string.saving_failed)
         }
     }
 
-    fun setRadioButton(presence: Presence) {
-        if (presence != _radioButtonStatus.value) {
-            _radioButtonStatus.value = presence
-        } else {
-            _radioButtonStatus.value = Presence.NONE
-        }
+    fun setRadioButton(presence: Boolean) {
+        _radioButtonStatus.value = presence
     }
 
     private fun showToast(ref: Int) {
@@ -62,5 +43,6 @@ class GuestFormViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun loadGuest(id: Int) {
         _loadedGuest.value = guestRepository.getGuest(id)
+        loadedGuest.value?.let { setRadioButton(it.presence) }
     }
 }
