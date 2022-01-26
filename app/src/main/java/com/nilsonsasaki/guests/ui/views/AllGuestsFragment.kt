@@ -1,5 +1,6 @@
 package com.nilsonsasaki.guests.ui.views
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nilsonsasaki.guests.R
 import com.nilsonsasaki.guests.databinding.FragmentAllGuestsBinding
 import com.nilsonsasaki.guests.service.constants.GuestConstants
 import com.nilsonsasaki.guests.ui.viewmodels.AllGuestsViewModel
@@ -46,15 +48,28 @@ class AllGuestsFragment : Fragment() {
 
     private fun setObservers() {
         allGuestsViewModel.allGuestsList.observe(viewLifecycleOwner) { newList ->
-            binding.rvAllGuests.adapter = GuestListAdapter(list = newList, onItemClick = {
+            binding.rvAllGuests.adapter = GuestListAdapter(
+                list = newList,
+                onItemClick = {
 
-                val intent = Intent(context, GuestFormActivity::class.java)
-                val bundle = Bundle()
-                bundle.putInt(GuestConstants.GUEST_ID,it.id)
-                intent.putExtras(bundle)
+                    val intent = Intent(context, GuestFormActivity::class.java)
+                    val bundle = Bundle()
+                    bundle.putInt(GuestConstants.GUEST_ID, it.id)
+                    intent.putExtras(bundle)
 
-                startActivity(intent)
-            })
+                    startActivity(intent)
+                },
+                onItemLongClick = {
+                    AlertDialog.Builder(context)
+                        .setTitle(R.string.delete_dialog_title)
+                        .setTitle(R.string.delete_dialog_text)
+                        .setPositiveButton(R.string.delete) { dialog, which ->
+                            allGuestsViewModel.deleteGuest(it.id)
+                        }
+                        .setNeutralButton(R.string.cancel, null)
+                        .show()
+                }
+            )
         }
     }
 
