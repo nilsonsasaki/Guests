@@ -19,4 +19,8 @@
     <string name="saved_successfully">Saved successfully</string>
     <string name="saving_failed">Saving failed</string>
     <string name="fab_go_to_guest_form">go to Guest Form</string>
+    <string name="delete_dialog_text">Do you want to delete this guest?</string>
+    <string name="delete_dialog_title">Delete guest</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 </resources>
