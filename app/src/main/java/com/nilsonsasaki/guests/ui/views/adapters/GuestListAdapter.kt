@@ -8,8 +8,10 @@ import com.nilsonsasaki.guests.service.models.GuestModel
 
 class GuestListAdapter(
     private val list: List<GuestModel>,
-    private val onItemClick: (GuestModel) -> Unit
-) : RecyclerView.Adapter<GuestListAdapter.GuestListViewHolder>() {
+    private val onItemClick: (GuestModel) -> Unit,
+    private val onItemLongClick: (GuestModel) -> Unit,
+
+    ) : RecyclerView.Adapter<GuestListAdapter.GuestListViewHolder>() {
 
     class GuestListViewHolder(binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val name = binding.tvGuestName
@@ -29,8 +31,12 @@ class GuestListAdapter(
         } else {
             "Absent"
         }
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener {
             onItemClick(list[position])
+        }
+        holder.itemView.setOnLongClickListener {
+            onItemLongClick(list[position])
+            true
         }
     }
 
